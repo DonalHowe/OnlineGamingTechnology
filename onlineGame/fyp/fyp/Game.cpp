@@ -5,7 +5,7 @@
 Game::Game() :
 	m_window{ sf::VideoMode{ ScreenSize::M_WIDTH, ScreenSize::M_HEIGHT, 32U }, "Ai Labs" }, m_exitGame{ false }
 {
-
+	m_playerOne.selectColour(sf::Color::Blue);
 }
 
 
@@ -65,7 +65,7 @@ void Game::processKeys(sf::Event t_event)
 
 void Game::update(sf::Time t_deltaTime)
 {
-	;
+	m_playerOne.update(t_deltaTime);
 
 }
 
@@ -74,7 +74,7 @@ void Game::render()
 {
 	m_window.clear(sf::Color::White);
 
-
+	m_playerOne.render(m_window);
 
 	m_window.display();
 }

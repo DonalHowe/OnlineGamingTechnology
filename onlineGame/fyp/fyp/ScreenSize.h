@@ -7,7 +7,7 @@ public:
 	static const int M_WIDTH = 800;
 };
 
-public enum class States
+enum class States
 {
 
 };

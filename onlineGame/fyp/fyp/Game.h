@@ -4,6 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "ScreenSize.h"
+#include "Player.h"
 
 class Game
 {
@@ -12,6 +13,7 @@ public:
 	~Game();
 	void run();
 	
+	Player m_playerOne;
 
 private:
 

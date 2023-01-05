@@ -13,10 +13,17 @@
 #endif 
 
 #include "Game.h"
+#include "Server.h"
 
 
 int main()
 {
+
+	Server MyServer(1111, false); //Create server on port 1111, false=do not loopback to localhost (others can connect)
+	while (true)
+	{
+		MyServer.ListenForNewConnection(); //Accept new connection (if someones trying to connect)
+	}
 	Game game;
 	game.run();
 

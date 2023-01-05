@@ -1,7 +1,5 @@
 #include "FileTransferData.h"
 #include "PacketStructs.h"
-
-
 bool FileTransferData::Initialize(const std::string& fileName, std::string& errMsg)
 {
 	if (m_transferInProgress) //If transfer already in progress?
@@ -23,7 +21,6 @@ bool FileTransferData::Initialize(const std::string& fileName, std::string& errM
 	m_fileOffset = 0; //Update file offset for knowing when we hit end of file
 	m_transferInProgress = true;
 }
-
 std::shared_ptr<Packet> FileTransferData::getOutgoingBufferPacket()
 {
 	int remainingBytes = m_fileSize - m_fileOffset; //calculate remaining bytes

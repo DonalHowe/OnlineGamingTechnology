@@ -1,20 +1,17 @@
 #pragma once
-#include <WinSock2.h>
-#include <string>
-#include <vector>
-#include <thread>
-#include <iostream>
-#include <shared_mutex>
-#include <WS2tcpip.h>
-#include "PacketStructs.h"
-#include "PacketManager.h"
-#pragma comment(lib,"ws2_32.lib") //Required for WinSock
+#include <WinSock2.h> //For win sockets
+#include <string> //For std::string
+#include "FileTransferData.h" //for FileTransferData class
+#include "PacketManager.h" //for PacketManager class
+#include <vector> //for std::vector
+#include <shared_mutex> //for shared_mutex
 
-class Connection {
+class Connection
+{
 public:
-	Connection(SOCKET t_socket) :m_socket(t_socket)
+	Connection(SOCKET socket)
+		:m_socket(socket)
 	{
-
 	}
 	SOCKET m_socket;
 	//file transfer data
@@ -25,12 +22,10 @@ public:
 
 class Server
 {
-public:
-	Server(int port, bool lookBackToLocalHost = true);
+public: //Public functions
+	Server(int port, bool loopBacktoLocalHost = true);
 	~Server();
 	bool ListenForNewConnection();
-
-private:
 private: //Private functions
 	bool sendall(std::shared_ptr<Connection> connection, const char* data, const int totalBytes);
 	bool recvall(std::shared_ptr<Connection> connection, char* data, int totalBytes);
@@ -42,7 +37,7 @@ private: //Private functions
 	static void ClientHandlerThread(Server& server, std::shared_ptr<Connection> connection);
 	static void PacketSenderThread(Server& server);
 	void DisconnectClient(std::shared_ptr<Connection> connection); //Called to properly disconnect and clean up a client (if possible)
-
+private: //Private Variables
 	std::vector<std::shared_ptr<Connection>> m_connections;
 	std::shared_mutex m_mutex_connectionMgr; //mutex for managing connections (used when a client disconnects)
 	int m_IDCounter = 0;
@@ -51,4 +46,3 @@ private: //Private functions
 	bool m_terminateThreads = false;
 	std::vector<std::thread*> m_threads; //so destructor can wait on created threads to end...
 };
-

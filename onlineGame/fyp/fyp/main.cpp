@@ -24,8 +24,8 @@ int main()
 	{
 		MyServer.ListenForNewConnection(); //Accept new connection (if someones trying to connect)
 	}
-	Game game;
-	game.run();
+	/*Game game;
+	game.run();*/
 
 	return 1; 
 }

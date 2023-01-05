@@ -136,6 +136,9 @@
     <ClCompile Include="PacketManager.cpp" />
     <ClCompile Include="PacketStructs.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="ProcessPacket.cpp" />
+    <ClCompile Include="SendGetMethods.cpp" />
+    <ClCompile Include="Server.cpp" />
     <ClCompile Include="ServerInit.cpp" />
   </ItemGroup>
   <ItemGroup>

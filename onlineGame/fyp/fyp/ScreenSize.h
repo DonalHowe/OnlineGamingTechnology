@@ -7,7 +7,3 @@ public:
 	static const int M_WIDTH = 800;
 };
 
-enum class States
-{
-
-};

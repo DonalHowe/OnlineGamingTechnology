@@ -14,13 +14,13 @@ public:
 
 	void playerMovement();
 	void player2Movement();
-	void checkCollision(sf::RectangleShape opponent);
+	void checkCollision(sf::CircleShape opponent);
 
 	void setPlayerID(int ID);
 	void setPosition(sf::Vector2f newPos);
 	void setPlayerColor();
 
-	sf::RectangleShape getPlayer();
+	sf::CircleShape getPlayer();
 
 	bool isIDSet();
 
@@ -33,15 +33,14 @@ public:
 
 private:
 
-	sf::RectangleShape player;
 	sf::Color color;
+
+	sf::CircleShape m_player;
 
 	int playerID = -1;
 
 	bool isColliding = false;
 	bool IDSet = false;
-
-
 
 };
 

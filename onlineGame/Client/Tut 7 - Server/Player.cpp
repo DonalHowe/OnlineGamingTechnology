@@ -6,13 +6,15 @@ void Player::init(std::string stringID)
 
 	setPlayerColor();
 
-	player.setSize(sf::Vector2f(50, 50));
-	player.setPosition(sf::Vector2f(100, 100));
+
+	m_player.setRadius(10u);
+	m_player.setPosition(100, 100);
+
 }
 
 void Player::render(sf::RenderWindow& win)
 {
-	win.draw(player);
+	win.draw(m_player);
 }
 
 void Player::update()
@@ -33,19 +35,19 @@ void Player::playerMovement()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
-		player.move(0, -10);
+		m_player.move(0, -10);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
-		player.move(0, 10);
+		m_player.move(0, 10);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		player.move(-10, 0);
+		m_player.move(-10, 0);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		player.move(10, 0);
+		m_player.move(10, 0);
 	}
 }
 
@@ -53,49 +55,49 @@ void Player::player2Movement()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		player.move(0, -10);
+		m_player.move(0, -10);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-		player.move(0, 10);
+		m_player.move(0, 10);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-		player.move(-10, 0);
+		m_player.move(-10, 0);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
-		player.move(10, 0);
+		m_player.move(10, 0);
 	}
 }
 
 //This Method is checking for collision between players
-void Player::checkCollision(sf::RectangleShape opponent)
+void Player::checkCollision(sf::CircleShape opponent)
 {
-	if (player.getGlobalBounds().intersects(opponent.getGlobalBounds()))
+	if (m_player.getGlobalBounds().intersects(opponent.getGlobalBounds()))
 	{
-		player.setFillColor(sf::Color::Yellow);
+		m_player.setFillColor(sf::Color::Yellow);
 		std::cout << "Player: " << getPlayerID() << "is colliding" << std::endl;
 		isColliding = true;
 	}
 
 	else
 	{
-		player.setFillColor(color);
+		m_player.setFillColor(color);
 		isColliding = false;
 	}
 }
 
 //This Get Method is returning the players body or rectangle shape.
-sf::RectangleShape Player::getPlayer()
+sf::CircleShape Player::getPlayer()
 {
-	return player;
+	return m_player;
 }
 
 //This method returns a string of the current players X and Y positions
 std::string Player::getPlayerPosition()
 {
-	return std::to_string(getPlayerID()) + "," + std::to_string(player.getPosition().x) + "," + std::to_string(player.getPosition().y);
+	return std::to_string(getPlayerID()) + "," + std::to_string(m_player.getPosition().x) + "," + std::to_string(m_player.getPosition().y);
 }
 
 //String method to return if collision happened or not
@@ -107,7 +109,7 @@ std::string Player::CheckForCollision()
 //Set method to set the players position
 void Player::setPosition(sf::Vector2f newPos)
 {
-	player.setPosition(newPos);
+	m_player.setPosition(newPos);
 }
 
 //Method to set the players colors as they join
@@ -126,7 +128,7 @@ void Player::setPlayerColor()
 		break;
 	}
 
-	player.setFillColor(color);
+	m_player.setFillColor(color);
 }
 
 //Method to set the players ID and to set their color

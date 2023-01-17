@@ -2,136 +2,100 @@
 
 void Player::init(std::string stringID)
 {
-	setPlayerID(convertStringToID(stringID));
-
-	setPlayerColor();
-
-
-	m_player.setRadius(10u);
-	m_player.setPosition(100, 100);
-
+	if (IDSet == false)
+	{
+		setPlayerID(convertStringToID(stringID));
+		m_circle.setRadius(10u);
+		m_circle.setPosition(100, 100);
+	}
 }
 
 void Player::render(sf::RenderWindow& win)
 {
-	win.draw(m_player);
+	win.draw(m_circle);
 }
 
-void Player::update()
+
+
+void Player::Movement(sf::Event t_event)
 {
-	if (playerID == 0)
+	if (sf::Keyboard::W==t_event.key.code)
 	{
-		playerMovement();
+		m_circle.move(0, -10);
 	}
-
-	//this is for testing with another client started on local PC
-	else if (playerID == 1)
+	if (sf::Keyboard::S==t_event.key.code)
 	{
-		player2Movement();
+		m_circle.move(0, 10);
 	}
-}
-
-void Player::playerMovement()
-{
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	if (sf::Keyboard::A==t_event.key.code)
 	{
-		m_player.move(0, -10);
+		m_circle.move(-10, 0);
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	if (sf::Keyboard::D==t_event.key.code)
 	{
-		m_player.move(0, 10);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-	{
-		m_player.move(-10, 0);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	{
-		m_player.move(10, 0);
+		m_circle.move(10, 0);
 	}
 }
 
-void Player::player2Movement()
-{
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-	{
-		m_player.move(0, -10);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-	{
-		m_player.move(0, 10);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-	{
-		m_player.move(-10, 0);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-	{
-		m_player.move(10, 0);
-	}
-}
 
-//This Method is checking for collision between players
 void Player::checkCollision(sf::CircleShape opponent)
 {
-	if (m_player.getGlobalBounds().intersects(opponent.getGlobalBounds()))
+	if (m_circle.getGlobalBounds().intersects(opponent.getGlobalBounds()))
 	{
-		m_player.setFillColor(sf::Color::Yellow);
-		std::cout << "Player: " << getPlayerID() << "is colliding" << std::endl;
+		m_circle.setFillColor(sf::Color::Yellow);
 		isColliding = true;
 	}
 
 	else
 	{
-		m_player.setFillColor(color);
+		m_circle.setFillColor(color);
 		isColliding = false;
 	}
 }
 
-//This Get Method is returning the players body or rectangle shape.
+
 sf::CircleShape Player::getPlayer()
 {
-	return m_player;
+	return m_circle;
 }
 
-//This method returns a string of the current players X and Y positions
+
 std::string Player::getPlayerPosition()
 {
-	return std::to_string(getPlayerID()) + "," + std::to_string(m_player.getPosition().x) + "," + std::to_string(m_player.getPosition().y);
+	return std::to_string(getPlayerID()) + "," + std::to_string(m_circle.getPosition().x) + "," + std::to_string(m_circle.getPosition().y);
 }
 
-//String method to return if collision happened or not
+
 std::string Player::CheckForCollision()
 {
-	return std::to_string(isColliding); // 1 is colliding , 0 is not 
+	return std::to_string(isColliding); 
 }
 
-//Set method to set the players position
+
 void Player::setPosition(sf::Vector2f newPos)
 {
-	m_player.setPosition(newPos);
+	m_circle.setPosition(newPos);
 }
 
-//Method to set the players colors as they join
+
 void Player::setPlayerColor()
 {
-	switch (playerID)
+	if (playerID == 0)
 	{
-	case 1:
 		color = sf::Color::Blue;
-		break;
-	case 2:
-		color = sf::Color::Magenta;
-		break;
-	default:
-		color = sf::Color::Red;
-		break;
+	}
+	else if (playerID == 1)
+	{
+		color = sf::Color::Green;
+	}
+	else if(playerID==2)
+	{
+		color = sf::Color::Cyan;
 	}
 
-	m_player.setFillColor(color);
+	m_circle.setFillColor(color);
 }
 
-//Method to set the players ID and to set their color
 void Player::setPlayerID(int ID)
 {
 	playerID = ID;

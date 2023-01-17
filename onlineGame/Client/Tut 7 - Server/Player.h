@@ -10,10 +10,10 @@ public:
 
 	void init(std::string stringID);
 	void render(sf::RenderWindow& win);
-	void update();
+	
 
-	void playerMovement();
-	void player2Movement();
+	void Movement(sf::Event t_event);
+	
 	void checkCollision(sf::CircleShape opponent);
 
 	void setPlayerID(int ID);
@@ -35,7 +35,7 @@ private:
 
 	sf::Color color;
 
-	sf::CircleShape m_player;
+	sf::CircleShape m_circle;
 
 	int playerID = -1;
 

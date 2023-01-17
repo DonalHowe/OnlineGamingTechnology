@@ -4,9 +4,9 @@
 
 Game::Game() :
 	m_window{ sf::VideoMode{ ScreenSize::M_WIDTH, ScreenSize::M_HEIGHT, 32U }, "Networked Tag Game " },
-	m_exitGame{ false }, myClient("127.0.0.1", 623) //when true game will exit
+	m_exitGame{ false }, myClient("127.0.0.1", 623) 
 {
-	if (!myClient.Connect()) //If client fails to connect...
+	if (!myClient.Connect()) 
 	{
 		std::cout << "Failed to connect to server..." << std::endl;
 		system("pause");
@@ -24,19 +24,19 @@ void Game::run()
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	const float fps{ 60.0f };
-	sf::Time timePerFrame = sf::seconds(1.0f / fps); // 60 fps
+	sf::Time timePerFrame = sf::seconds(1.0f / fps); 
 
 	while (m_window.isOpen())
 	{
-		processEvents(); // as many as possible
+		processEvents(); 
 		timeSinceLastUpdate += clock.restart();
 		while (timeSinceLastUpdate > timePerFrame)
 		{
 			timeSinceLastUpdate -= timePerFrame;
-			processEvents(); // at least 60 fps
-			update(timePerFrame); //60 fps
+			processEvents();
+			update(timePerFrame); 
 		}
-		render(); // as many as possible
+		render(); 
 	}
 }
 
@@ -61,15 +61,16 @@ void Game::processEvents()
 	sf::Event newEvent;
 	while (m_window.pollEvent(newEvent))
 	{
-		if (sf::Event::Closed == newEvent.type) // window message
+		if (sf::Event::Closed == newEvent.type)
 		{
 			m_exitGame = true;
 		}
-		if (sf::Event::KeyPressed == newEvent.type) //user pressed a key
+		if (sf::Event::KeyPressed == newEvent.type)
 		{
 			processKeys(newEvent);
 		}
 	}
+
 }
 
 
@@ -80,6 +81,7 @@ void Game::processKeys(sf::Event t_event)
 	{
 		m_exitGame = true;
 	}
+	player.Movement(t_event);
 }
 
 
@@ -94,7 +96,7 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		player.init(myClient.getID_Message());
 	}
-	player.update();
+	
 
 	player.checkCollision(Player2.getPlayer());
 
@@ -136,9 +138,8 @@ void Game::update(sf::Time t_deltaTime)
 	}
 }
 
-/// <summary>
-/// draw the frame and then switch buffers
-/// </summary>
+
+
 void Game::render()
 {
 	m_window.clear(sf::Color::Black);
@@ -155,7 +156,7 @@ void Game::getNumberOfPlayer(std::string& string)
 	{
 		if (string == "1" || string == "2" || string == "3")
 		{
-			//std::cout << string << std::endl;
+		
 			numberOfPlayer = std::stoi(string);
 		}
 	}

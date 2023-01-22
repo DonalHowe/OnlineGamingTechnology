@@ -16,7 +16,6 @@ void Player::render(sf::RenderWindow& win)
 }
 
 
-
 void Player::Movement(sf::Event t_event)
 {
 	if (sf::Keyboard::W==t_event.key.code)
@@ -35,6 +34,9 @@ void Player::Movement(sf::Event t_event)
 	{
 		m_circle.move(10, 0);
 	}
+
+	
+
 }
 
 
@@ -50,6 +52,28 @@ void Player::checkCollision(sf::CircleShape opponent)
 	{
 		m_circle.setFillColor(color);
 		isColliding = false;
+	}
+}
+
+void Player::update()
+{
+	if (m_circle.getPosition().x < 0)
+	{
+		m_circle.setPosition(ScreenSize::M_WIDTH, m_circle.getPosition().y);
+	}
+	if (m_circle.getPosition().x > ScreenSize::M_WIDTH)
+	{
+		m_circle.setPosition(0, m_circle.getPosition().y);
+	}
+
+	if (m_circle.getPosition().y < 0)
+	{
+		m_circle.setPosition(m_circle.getPosition().x, ScreenSize::M_HEIGHT);
+	}
+
+	if (m_circle.getPosition().y > ScreenSize::M_HEIGHT)
+	{
+		m_circle.setPosition(m_circle.getPosition().x, 0);
 	}
 }
 
@@ -71,12 +95,10 @@ std::string Player::CheckForCollision()
 	return std::to_string(isColliding); 
 }
 
-
 void Player::setPosition(sf::Vector2f newPos)
 {
 	m_circle.setPosition(newPos);
 }
-
 
 void Player::setPlayerColor()
 {

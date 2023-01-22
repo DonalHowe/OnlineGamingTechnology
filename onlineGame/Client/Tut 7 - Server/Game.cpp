@@ -96,7 +96,7 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		player.init(myClient.getID_Message());
 	}
-	
+	player.update();
 
 	player.checkCollision(Player2.getPlayer());
 

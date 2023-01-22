@@ -3,6 +3,7 @@
 #include <string.h>
 #include <iostream>
 #include <sstream>
+#include "ScreenSize.h"
 
 class Player
 {
@@ -15,7 +16,7 @@ public:
 	void Movement(sf::Event t_event);
 	
 	void checkCollision(sf::CircleShape opponent);
-
+	void update();
 	void setPlayerID(int ID);
 	void setPosition(sf::Vector2f newPos);
 	void setPlayerColor();

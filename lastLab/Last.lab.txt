@@ -1,0 +1,17 @@
+1. In the context of IP restricted NAT devices, what does the hole-punching technique do? 
+Describe this technique, 
+using a diagram to aid your explanation if appropriate.
+
+2. In multiplayer online games, interest management cuts down the bandwidth usage by filtering irrelevant updates.
+ Describe two common techniques of interest management.	
+
+3. Interest management is important for good network performance in massively multiplayer games. 
+What is a potentially visible set, and how does this approach
+ differ from static zones? How do these interest management approaches benefit the game?                                                               
+4. Describe one example for client-side attack and server-side attack, respectively.
+ Please include details of how this attack works and a mechanism to prevent it.
+
+5. Cheating in online games is the action of pretending to comply with the rules of the game, 
+while secretly subverting them to gain an unfair advantage over an opponent.
+ Describe two ways of cheating. 
+Please include details of how each cheating works and a mechanism to prevent it. 

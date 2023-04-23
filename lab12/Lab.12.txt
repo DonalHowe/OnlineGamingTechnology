@@ -1,0 +1,88 @@
+GNU privacy guard (GPG, also GnuPG) is free encryption software that's compliant with the OpenPGP (RFC 4880)standard. It is available at https://gnupg.org/download/index.html
+
+1. (Team up with someone if needed). Please use GPG to encrypt the message using the recipient's public key, signs it with your own private key to guarantee that it is coming from you.
+ The other should be able to verify and decrypt it.
+
+(Note: since pgp.mit.edu does not work properly with command line, you might manually export and import public keys.)
+
+Please upload a short video or some screenshots to github as proof.
+
+2. Show how RSA works with an example.
+
+â€ƒ
+The following steps might be helpful.
+
+1. Generate a new keypair
+gpg --gen-key
+
+2. Show your public and secret keys
+gpg --list-keys
+gpg --list-secret-keys
+
+3. Upload your public key to https://pgp.mit.edu
+gpg --keyserver pgp.mit.edu --send-keys Your_Key_ID
+gpg --keyserver pgp.mit.edu --send-keys AA4F2CD54B72BEDFFAF4FBFA9C1A767727EC9B3A
+
+4. Search for a key
+gpg --keyserver=pgp.mit.edu --search-keys search_parameters
+
+gpg --keyserver=pgp.mit.edu --search-keys robustness@gmail.com
+gpg --keyserver=pgp.mit.edu --search-keys eliasen@mindspring.com
+
+5. Import someone's public key
+gpg --keyserver=pgp.mit.edu --recv-key key_ID
+gpg --keyserver=pgp.mit.edu --recv-key EC2392F2EDE74488680DA3CF5F2B4756ED873D23
+
+6. show public keys
+gpg --list-keys
+
+7. Remove a key
+gpg --delete-key "EC2392F2EDE74488680DA3CF5F2B4756ED873D23"
+
+you can also delete your own secrect key, before you remove your secrect key, you cannot remove your public key.
+
+For example:
+gpg --delete-secret-key "robustness@gmail.com"
+gpg --delete-key "robustness@gmail.com"
+
+8. Someone encrypts a file to send to robustness@gmail.com
+gpg --output del.gpg --encrypt --recipient robustness@gmail.com del.txt
+
+9. Someone sends it to robustness@gmail.com
+
+You can use scp command, for example:
+scp del.gpg lshi@192.168.165.1:~/Desktop/
+
+10. robustness@gmail.com decrypts it
+gpg --decrypt encrypted_file
+
+A digitial signature certifies and timestamps a document. If the document is modified in anyway, a verification of the signature will fail. Bob (receiver) can confirm: 1) 
+it is from Alice (sender); 2) It had not been modified since Alice sent it. It is difficult for Alice (sender) to deny that she made a digital signature since that would imply
+ her private key has been compromised.
+
+
+11. robustness@gmail.com signs a doc
+
+First compress and then sign, the output is a binary file.
+
+gpg --output doc.sig --sign doc 
+
+12. robustness@gmail.com sends it to someone
+scp command...
+
+13. someone will verify signature
+gpg --verify doc.sig
+
+14. someone will decrypt the signed file
+gpg --output doc --decrypt doc.sig
+
+15. Clearsigned documents
+A common use of digital signatures is to sign email messages. In such situations it is undesirable to compress the doc when signing it.
+
+gpg --clearsign doc
+
+16. Detached signatures
+gpg --output doc.sig --detach-sig doc
+
+17. To verify the detached signature
+gpg --verify doc.sig doc

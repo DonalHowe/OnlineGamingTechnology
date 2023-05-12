@@ -1,17 +1,31 @@
-	Alice and Bob wish to communicate with each other over the Internet. Each uses RSA, the common asymmetric cryptography protocol. Thus, each has his/her own private key and knows the public key of the other. Let us denote private key of Alice as Pr(A), private key of Bob as Pr(B), public key of Alice as Pu(A), and public key of Bob as Pu(B). 
+Alice wants to send a message to Bob so that no one else can read it. Let us denote the message as M1. How would Alice send the message?
 
-Please use the following notation in presenting your answers:
-E_K (M): Message M is encrypted using key K
-D_K (M): Message M is decrypted using key K
+- Alice would send the message using RSA encryption as follows:
 
-	Alice wants to send a message to Bob so that no one else can read it. Let us denote the message as M_1. 
+-Alice encrypts the message M1 using Bob's public key (Pu(B)): E(Pu(B), M1).
+-Alice sends the encrypted message E(Pu(B), M1) to Bob.
 
-	How would Alice send the message? 	
+Let us denote the message Alice sent as M3. How would Bob decipher the message?
 
-	Let us denote the message Alice sent as M_3. How would Bob decipher the message?
+Bob would decipher the message (M3) sent by Alice using RSA decryption as follows:
 
-	In this situation, Alice does not care if anyone can read her message. But she does care that no one in the middle can change the message (in an undetectable manner). 
-	Let us denote the message as M_2.
+-Bob uses his private key (Pr(B)) to decrypt the encrypted message E(Pu(B), M1): D(Pr(B), E(Pu(B), M1)).
+-Bob obtains the original message M3.
 
-	How would Alice send the message?	
-	What would Bob do to verify that the message indeed came from Alice?	
+In this situation, Alice does not care if anyone can read her message. But she does care that no one in the middle can change the message (in an undetectable manner). Let us denote the message as M2. How would Alice send the message?
+
+-Alice would send the message with the aim of ensuring message integrity using digital signatures. The process is as follows:
+
+-Alice generates a hash value of the message M2, creating a unique representation of its contents.
+-Alice encrypts the hash value using her private key (Pr(A)): E(Pr(A), Hash(M2)).
+-Alice appends the encrypted hash value to the original message, creating a digital signature: M2 || E(Pr(A), Hash(M2)).
+-Alice sends the signed message (M2 || E(Pr(A), Hash(M2))) to Bob.
+
+What would Bob do to verify that the message indeed came from Alice?
+
+- Bob can verify the authenticity of the message (M2) received from Alice by performing the following steps:
+
+-Bob extracts the original message (M2) and the encrypted hash value from the received message: Extract(M2 || E(Pr(A), Hash(M2))).
+-Bob uses Alice's public key (Pu(A)) to decrypt the encrypted hash value: D(Pu(A), E(Pr(A), Hash(M2))).
+-Bob computes the hash value of the original message M2: Hash(M2).
+-Bob compares the computed hash value with the decrypted hash value. If they match, it ensures that the message has not been tampered with during transit and that it came from Alice.

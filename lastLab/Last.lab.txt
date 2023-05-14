@@ -2,16 +2,180 @@
 Describe this technique, 
 using a diagram to aid your explanation if appropriate.
 
+In the context of IP restricted NAT devices,
+ the hole-punching technique is used to establish 
+a direct communication channel between two devices behind different
+ NATs (Network Address Translations) that would typically prevent direct communication. 
+This technique allows devices to bypass the limitations i
+mposed by NATs and establish peer-to-peer connections.
+      +------------------------+
+      |     Rendezvous Server   |
+      +------------------------+
+      |                        |
+      |    Device A            |
+      |    (NAT A)             |
+      |                        |
+      +------------------------+
+      |                        |
+      |    Device B            |
+      |    (NAT B)             |
+      |                        |
+      +------------------------+
+
+
+
 2. In multiplayer online games, interest management cuts down the bandwidth usage by filtering irrelevant updates.
- Describe two common techniques of interest management.	
+ Describe two common techniques of interest management.
+
+a. Spatial Partitioning: In this technique, 
+the game world is divided into spatial regions or partitions. 
+Each player is associated with a specific partition or set of partitions.
+ Only updates occurring within a player's designated partition(s) are sent to that player. 
+Updates occurring outside the partitions are filtered out, reducing bandwidth usage.
+ Players receive updates relevant to their immediate surroundings, 
+improving gameplay experience and reducing network overhead.
+
+b. Entity-Based Interest: In this technique,
+ updates are transmitted based on the player's interest in specific entities within the game world.
+ Each player expresses their interest in certain game entities (e.g., other players, objects, or events). 
+#Updates related to the entities of interest are selectively sent to the player, 
+while updates for non-relevant entities are filtered out. 
+This approach ensures that players receive updates for entities they interact with or are interested in,
+ minimizing unnecessary data transmission.	
 
 3. Interest management is important for good network performance in massively multiplayer games. 
 What is a potentially visible set, and how does this approach
- differ from static zones? How do these interest management approaches benefit the game?                                                               
+ differ from static zones? How do these interest management approaches benefit the game?   
+Potentially Visible Set (PVS):
+The Potentially Visible Set (PVS) is a dynamic approach that determines the set of objects or entities that are potentially visible to each player in real-time based on their current position and field of view. It takes into account occlusion and visibility calculations to determine which objects should be rendered and transmitted to the player. The PVS is updated dynamically as the player moves or changes their perspective within the game world.
+
+Static Zones:
+Static zones, on the other hand, divide the game world into predefined regions or zones.
+ Each player is associated with a specific zone or set of zones.
+ Only updates occurring within the player's designated zones are sent to that player.
+ Updates occurring outside the zones are filtered out and not transmitted to the player. 
+The zones are typically defined during the game's design phase and do not change dynamically during gameplay.
+
+Benefits of Potentially Visible Set (PVS) and Static Zones in Interest Management:
+
+Bandwidth Efficiency: Both PVS and static zones help optimize network bandwidth usage 
+by transmitting only relevant updates to players. 
+Irrelevant updates outside a player's visibility range or designated zones are filtered out,
+ reducing the amount of data that needs to be transmitted.
+
+Reduced Processing Load: By filtering out irrelevant updates, 
+the computational load on the player's client device is reduced. 
+Players only receive updates for objects or entities that are within their visibility range or designated zones, 
+allowing for smoother gameplay and better performance.
+
+Improved Gameplay Experience: By focusing on relevant updates, 
+PVS and static zones ensure that players receive information about objects
+ or entities that are important to their immediate surroundings. This enhances the immersive experience, 
+reduces visual clutter, and allows players to interact with the game world more effectively.
+
+Scalability: Both techniques help in scaling multiplayer games to support a larger number of players.
+ By efficiently managing the distribution of updates, network congestion is minimized, 
+and the game servers can handle a higher player population without sacrificing performance.
+                                                            
 4. Describe one example for client-side attack and server-side attack, respectively.
  Please include details of how this attack works and a mechanism to prevent it.
+
+Client-Side Attack: Cross-Site Scripting (XSS)
+Cross-Site Scripting (XSS) is a client-side attack that occurs when a malicious 
+script is injected into a legitimate website or web application. 
+The attack takes advantage of a vulnerability that allows the attacker to inject malicious code 
+(usually JavaScript) into web pages viewed by other users.
+ When unsuspecting users visit the compromised page, the injected script is executed on their browsers,
+ leading to various harmful consequences.
+
+How it works:
+
+The attacker identifies a vulnerable website or web application that does not properly 
+sanitize user inputs or validate data.
+The attacker crafts a malicious script and injects it into the vulnerable web page, 
+often by submitting a specially crafted input or manipulating URLs.
+When other users visit the compromised page, the injected script is served along with the legitimate content.
+The user's browser executes the injected script,
+ which can perform actions such as stealing sensitive information 
+(e.g., login credentials, personal data), modifying page content, 
+redirecting users to malicious websites, or initiating further attacks.
+
+Prevention Mechanism:
+
+Input Validation and Sanitization: Websites and web applications should implement 
+strict input validation and sanitization techniques to prevent the execution of malicious code. 
+This includes validating and filtering user inputs to ensure they do not contain potentially
+ harmful characters or scripts.
+
+Server-Side Attack: SQL Injection
+SQL Injection is a server-side attack that exploits vulnerabilities in a web application's database layer. 
+It occurs when an attacker manipulates input parameters to inject malicious SQL queries into the application's database.
+ By successfully executing unauthorized SQL queries, the attacker can manipulate or retrieve sensitive data, 
+modify database records, or even gain unauthorized access to the server.
+
+How it works:
+
+The attacker identifies a web application that does not properly validate or sanitize
+ user inputs when constructing SQL queries.
+The attacker submits specially crafted input, typically in the form of SQL statements, 
+to exploit the vulnerable application.
+If the application does not adequately validate and sanitize the inputs, the malicious 
+SQL statements are concatenated with the legitimate query and executed on the database server.
+The attacker can extract sensitive data, modify database records, or perform other 
+unauthorized actions, depending on the extent of the vulnerability.
+
+Prevention Mechanism:
+
+Parameterized Queries and Prepared Statements: 
+Web applications should use parameterized queries or prepared statements to handle user input 
+when constructing SQL queries. These techniques ensure that user
+ inputs are treated as data and separate them from the SQL syntax,
+ preventing the injection of malicious code.
+In both cases, staying updated with the latest security patches,
+ using security frameworks, and conducting regular security audits can 
+help mitigate vulnerabilities and reduce the risk of client-side and server-side attacks.
 
 5. Cheating in online games is the action of pretending to comply with the rules of the game, 
 while secretly subverting them to gain an unfair advantage over an opponent.
  Describe two ways of cheating. 
 Please include details of how each cheating works and a mechanism to prevent it. 
+
+Aimbot/Wallhacks:
+Aimbots and wallhacks are cheats commonly used in first-person shooter games to gain an unfair advantage in aiming and detecting opponents.
+
+How it works:
+
+Aimbot: An aimbot is a cheat that automatically aims and shoots at opponents with exceptional precision.
+ It uses software to track opponents' positions and aims the player's weapon directly at them, often 
+resulting in perfect headshots or accurate shots.
+Wallhack: A wallhack is a cheat that allows players to see through walls, objects,
+ or other obstructions. It reveals the positions of opponents who would normally be hidden from view,
+ giving the cheating player an unfair awareness advantage.
+
+Prevention Mechanism:
+Anti-Cheat Systems: Game developers employ anti-cheat systems that actively monitor and detect 
+suspicious behavior or software modifications in real-time.
+ These systems can detect and flag players who are using aimbots or wallhacks, leading to consequences
+ such as temporary or permanent bans from the game.
+
+Exploiting Game Glitches:
+Exploiting game glitches involves taking advantage of programming errors or unintended mechanics within
+ the game to gain an unfair advantage.
+
+How it works:
+
+Glitch Exploitation: Players actively seek out and exploit glitches, such as map exploits, physics bugs,
+ or unintended interactions, to gain advantages like accessing areas not intended for gameplay, achieving 
+invincibility, or obtaining rare items through unintended methods.
+
+Duplication Exploits: Players exploit glitches or loopholes to duplicate valuable in-game items or currency,
+ allowing them to gain substantial wealth or power without legitimate effort.
+
+Prevention Mechanism:
+
+Regular Game Updates: Game developers frequently release patches and updates to fix known glitches and vulnerabilities 
+in the game. Players are encouraged to keep their games up to date to ensure that known exploits are eliminated.
+
+Bug Reporting and Player Feedback: Players can report glitches or bugs they encounter to the game developers, 
+helping them identify and address these issues more effectively. By providing feedback, 
+players contribute to creating a more stable and fair gaming environment.
